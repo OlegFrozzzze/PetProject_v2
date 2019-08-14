@@ -1,14 +1,17 @@
-package com.example.springwithjpa;
+package com.example.springwithjpa.Controller;
 
 import com.example.springwithjpa.domain.Message;
 import com.example.springwithjpa.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.Map;
 
 @Controller
-public class HomeController {
+public class MainController {
     @Autowired
     private MessageRepo messageRepo;
 
@@ -20,6 +23,7 @@ public class HomeController {
     @GetMapping("/main")
     public String main(Map<String, Object> model) {
         Iterable<Message> messages = messageRepo.findAll();
+
         model.put("massages", messages);
         return "main";
     }
@@ -40,9 +44,8 @@ public class HomeController {
         return "main";
     }
 
-    @PostMapping("/filter")
-    public String filter(@RequestParam String filter,
-                         Map<String, Object> model) {
+    @PostMapping("filter")
+    public String filter(@RequestParam String filter, Map<String, Object> model) {
         Iterable<Message> messages;
         if (filter != null && !filter.isEmpty()) {
             messages = messageRepo.findByTag(filter);
