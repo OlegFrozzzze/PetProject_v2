@@ -13,8 +13,7 @@ public class HomeController {
     private MessageRepo messageRepo;
 
     @GetMapping("/")
-    public String greeting(Map<String, Object> model
-    ) {
+    public String greeting(Map<String, Object> model) {
         return "greeting";
     }
 
